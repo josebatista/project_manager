@@ -1,10 +1,11 @@
 <?php
 
 use JBP\Framework\Exceptions\HttpException;
+use JBP\Framework\Router;
 
 require __DIR__ . "/vendor/autoload.php";
 
-$route = new \JBP\Framework\Router();
+$route = new Router();
 
 $route->add('get', '/', function () {
     return 'estamos na home';
