@@ -1,0 +1,19 @@
+{
+  "name": "jpereira/project-manager",
+  "description": "Project Manager",
+  "authors": [
+    {
+      "name": "jpereira",
+      "email": "josebatistapereira@gmail.com"
+    }
+  ],
+  "require": {},
+  "autoload": {
+    "psr-4": {
+      "JBP\\Framework\\": "src"
+    }
+  },
+  "scripts": {
+    "server": "php -S localhost:8080"
+  }
+}
