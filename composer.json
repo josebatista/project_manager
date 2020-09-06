@@ -7,7 +7,10 @@
       "email": "josebatistapereira@gmail.com"
     }
   ],
-  "require": {},
+  "require": {
+    "pimple/pimple": "^3.3",
+    "ext-pdo": "*"
+  },
   "autoload": {
     "psr-4": {
       "JBP\\Framework\\": "src",

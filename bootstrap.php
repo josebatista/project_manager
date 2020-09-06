@@ -6,14 +6,8 @@ use JBP\Framework\Router;
 require __DIR__ . "/vendor/autoload.php";
 
 $route = new Router();
-
-$route->add('get', '/', function () {
-    return 'estamos na home';
-});
-
-$route->add('GET', '/projects/(\d+)', function ($params) {
-    return 'listando projeto com id ' . $params[1];
-});
+require __DIR__ . "/config/containers.php";
+require __DIR__ . "/config/routes.php";
 
 try {
     echo $route->run();
