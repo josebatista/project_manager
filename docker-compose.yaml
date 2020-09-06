@@ -1,0 +1,50 @@
+version: "3"
+
+services:
+  app:
+    build: ./.docker/app
+    container_name: app
+    entrypoint: dockerize -wait tcp://db:3306 -timeout 40s /var/www/.docker/app/entrypoint.sh
+    volumes:
+      - .:/var/www:z
+    networks:
+      - app-network
+    depends_on:
+      - db
+
+  nginx:
+    build: ./.docker/nginx
+    container_name: nginx
+    entrypoint: dockerize -wait tcp://app:9000 -timeout 40s sh /var/www/.docker/nginx/entrypoint.sh
+    restart: always
+    tty: true
+    ports:
+      - "8080:80"
+    volumes:
+      - .:/var/www:z
+      - ./.docker/nginx/nginx.conf:/etc/nginx/conf.d/nginx.conf:z
+    networks:
+      - app-network
+    depends_on:
+      - app
+
+  db:
+    build: ./.docker/db
+    command: --innodb-use-native-aio=0
+    container_name: db
+    environment:
+      - MYSQL_DATABASE=project_manager
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_USER=root
+    restart: always
+    tty: true
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./.docker/dbdata:/var/lib/mysql:z
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge

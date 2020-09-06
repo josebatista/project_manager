@@ -7,13 +7,19 @@
       "email": "josebatistapereira@gmail.com"
     }
   ],
-  "require": {},
+  "require": {
+    "pimple/pimple": "^3.3"
+  },
   "autoload": {
     "psr-4": {
-      "JBP\\Framework\\": "src"
+      "JBP\\Framework\\": "src",
+      "APP\\": "app"
     }
   },
   "scripts": {
-    "server": "php -S localhost:8080"
+    "server": "php -S localhost:8080 -t public"
+  },
+  "config": {
+    "process-timeout": 0
   }
 }
