@@ -13,8 +13,13 @@ require __DIR__ . "/config/routes.php";
 try {
     $result = $route->run();
 
+    $params = [
+        'container' => $container,
+        'params' => $result['params']
+    ];
+
     $response = new Response();
-    $response($result['action'], $result['params']);
+    $response($result['action'], $params);
 
 } catch (HttpException $e) {
     echo json_encode(['error' => $e->getMessage()]);
