@@ -8,17 +8,11 @@ use APP\Models\Users;
 
 class UsersController
 {
-    private $container;
 
-    public function __construct($container)
+    public function show($container, $params)
     {
-        $this->container = $container;
-    }
-
-    public function show($id)
-    {
-        $user = new Users($this->container);
-        $data = $user->get($id);
+        $user = new Users($container);
+        $data = $user->get($params[1]);
 
         return 'Olá meu nome é ' . $data['name'];
     }

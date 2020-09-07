@@ -6,6 +6,4 @@ $route->add('get', '/', function () {
     return 'estamos na home';
 });
 
-$route->add('GET', '/users/(\d+)', function ($params) use ($container) {
-    return (new \APP\Controllers\UsersController($container))->show($params[1]);
-});
+$route->add('GET', '/users/(\d+)', '\APP\Controllers\UsersController::show');
