@@ -1,11 +1,15 @@
 <?php
 
-$route->add('get', '/', function () use ($container) {
-    $pdo = $container['db'];
-    var_dump($pdo);
+use APP\Models\Users;
+
+$route->add('get', '/', function () {
     return 'estamos na home';
 });
 
-$route->add('GET', '/projects/(\d+)', function ($params) {
-    return 'listando projeto com id ' . $params[1];
+$route->add('GET', '/users/(\d+)', function ($params) use ($container) {
+
+    $user = new Users($container);
+    $data = $user->get($params[1]);
+
+    return 'Olá meu nome é ' . $data['name'];
 });
