@@ -8,6 +8,7 @@ require __DIR__ . "/vendor/autoload.php";
 
 $route = new Router();
 require __DIR__ . "/config/containers.php";
+require __DIR__ . "/config/events.php";
 require __DIR__ . "/config/routes.php";
 
 try {
