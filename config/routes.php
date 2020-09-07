@@ -7,9 +7,5 @@ $route->add('get', '/', function () {
 });
 
 $route->add('GET', '/users/(\d+)', function ($params) use ($container) {
-
-    $user = new Users($container);
-    $data = $user->get($params[1]);
-
-    return 'Olá meu nome é ' . $data['name'];
+    return (new \APP\Controllers\UsersController($container))->show($params[1]);
 });
