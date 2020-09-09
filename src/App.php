@@ -36,6 +36,17 @@ class App
         return $this->container['router'];
     }
 
+    public function getResponder()
+    {
+        if (!$this->container->offsetExists('responder')) {
+            $this->container['responder'] = function () {
+                return new Response();
+            };
+        }
+
+        return $this->container['responder'];
+    }
+
     public function run()
     {
         try {
@@ -46,7 +57,7 @@ class App
                 'params' => $result['params']
             ];
 
-            $response = new Response();
+            $response = $this->getResponder();
 
             foreach ($this->middlewares['before'] as $middleware) {
                 $middleware($this->container);
