@@ -47,6 +47,19 @@ class App
         return $this->container['responder'];
     }
 
+    public function getHttpErrorHandler()
+    {
+        if (!$this->container->offsetExists('httpErrorHandler')) {
+            $this->container['httpErrorHandler'] = function ($c) {
+                header('Content-Type: application/json');
+
+                return json_encode(['code' => $c['exception']->getCode(), 'error' => $c['exception']->getMessage()]);
+            };
+        }
+
+        return $this->container['httpErrorHandler'];
+    }
+
     public function run()
     {
         try {
@@ -71,7 +84,8 @@ class App
 
 
         } catch (HttpException $e) {
-            echo json_encode(['error' => $e->getMessage()]);
+            $this->container['exception'] = $e;
+            echo $this->getHttpErrorHandler();
         }
     }
 
