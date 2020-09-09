@@ -4,21 +4,20 @@
 namespace JBP\Framework;
 
 use JBP\Framework\Exceptions\HttpException;
+use Pimple\Container;
 
 class App
 {
 
     private $container;
-    private $route;
     private $middlewares = [
         'before' => [],
         'after' => []
     ];
 
-    public function __construct($container, $route)
+    public function __construct(Container $container)
     {
         $this->container = $container;
-        $this->route = $route;
     }
 
     public function addMiddleware($on, $callback)
@@ -26,10 +25,21 @@ class App
         $this->middlewares[$on][] = $callback;
     }
 
+    public function getRouter()
+    {
+        if (!$this->container->offsetExists('router')) {
+            $this->container['router'] = function () {
+                return new Router();
+            };
+        }
+
+        return $this->container['router'];
+    }
+
     public function run()
     {
         try {
-            $result = $this->route->run();
+            $result = $this->getRouter()->run();
 
             $params = [
                 'container' => $this->container,
