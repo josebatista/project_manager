@@ -1,0 +1,6 @@
+<?php
+
+$middlewares = [
+    'before' => [],
+    'after' => []
+];
