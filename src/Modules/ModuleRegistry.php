@@ -30,7 +30,26 @@ class ModuleRegistry
     public function run()
     {
         foreach ($this->modules as $module) {
-            //
+            $this->registry($module);
         }
+    }
+
+    private function registry(Contract $module)
+    {
+        $app = $this->app;
+        $router = $app->getRoutes();
+        $container = $app->getContainer();
+
+        $namespaces = $module->getNamespaces();
+
+        foreach ($namespaces as $prefix => $path) {
+            $this->composer->setPsr4($prefix, $path);
+        }
+
+        require $module->getContainerConfig();
+        require $module->getEventConfig();
+        require $module->getMiddlewareConfig();
+        require $module->getRouteConfig();
+
     }
 }

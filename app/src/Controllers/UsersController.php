@@ -1,10 +1,10 @@
 <?php
 
 
-namespace APP\Controllers;
+namespace App\Controllers;
 
 
-use APP\Models\Users;
+use App\Models\Users;
 use Symfony\Component\HttpFoundation\Request;
 
 
