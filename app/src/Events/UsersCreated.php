@@ -1,7 +1,7 @@
 <?php
 
 
-namespace APP\Events;
+namespace App\Events;
 
 
 class UsersCreated

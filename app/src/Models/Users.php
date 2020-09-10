@@ -1,7 +1,7 @@
 <?php
 
 
-namespace APP\Models;
+namespace App\Models;
 
 use Pimple\Container;
 

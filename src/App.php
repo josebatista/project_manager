@@ -4,20 +4,28 @@
 namespace JBP\Framework;
 
 use JBP\Framework\Exceptions\HttpException;
+use JBP\Framework\Modules\ModuleRegistry;
 use Pimple\Container;
 
 class App
 {
-
+    private $composer;
     private $container;
     private $middlewares = [
         'before' => [],
         'after' => []
     ];
 
-    public function __construct(Container $container)
+    public function __construct($composer, array $modules, Container $container = null)
     {
         $this->container = $container;
+        $this->composer = $composer;
+
+        if ($this->container === null) {
+            $this->container = new Container();
+        }
+
+        $this->loadRegistry($modules);
     }
 
     public function addMiddleware($on, $callback)
@@ -25,7 +33,12 @@ class App
         $this->middlewares[$on][] = $callback;
     }
 
-    public function getRouter()
+    public function getContainer(): Container
+    {
+        return $this->container;
+    }
+
+    public function getRoutes()
     {
         if (!$this->container->offsetExists('router')) {
             $this->container['router'] = function () {
@@ -63,7 +76,7 @@ class App
     public function run()
     {
         try {
-            $result = $this->getRouter()->run();
+            $result = $this->getRoutes()->run();
 
             $params = [
                 'container' => $this->container,
@@ -89,4 +102,18 @@ class App
         }
     }
 
+    private function loadRegistry($modules)
+    {
+        $registry = new ModuleRegistry();
+
+        $registry->setApp($this);
+        $registry->setComposer($this->composer);
+
+        foreach ($modules as $file => $module) {
+            require $file;
+            $registry->add(new $module);
+        }
+
+        $registry->run();
+    }
 }
