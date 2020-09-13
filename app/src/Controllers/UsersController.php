@@ -11,14 +11,30 @@ use Symfony\Component\HttpFoundation\Request;
 class UsersController
 {
 
+    public function index($container, Request $request)
+    {
+        return 'index';
+    }
+
     public function show($container, Request $request)
     {
         $user = new Users($container);
-
-        //teste disparar eventos
-        $user->create(['name' => 'teste']);
-
         return $user->get($request->attributes->get(1));
     }
 
+    public function create($container, Request $request)
+    {
+        $user = new Users($container);
+        return $user->create($request->request->all());
+    }
+
+    public function update($container, Request $request)
+    {
+        return 'update';
+    }
+
+    public function delete($container, Request $request)
+    {
+        return 'delete';
+    }
 }
