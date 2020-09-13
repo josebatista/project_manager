@@ -27,8 +27,16 @@ class Users
     public function create(array $data)
     {
         $this->events->trigger('creating.users', null, $data);
-        // INSERT INTO DATABASE
+
+        $sql = "INSERT INTO `users` (`name`) VALUES (?)";
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute(array_values($data));
+
+        $result = $this->get($this->db->lastInsertId());
+
         $this->events->trigger('created.users', null, $data);
+
+        return $result;
     }
 
 }
