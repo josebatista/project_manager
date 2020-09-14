@@ -54,8 +54,9 @@ class Users
     {
         $this->events->trigger('updating.users', null, $data);
 
-        $sql = "UPDATE `users` SET `name`=:name WHERE id=:id";
-        $stmt = $this->db->prepare($sql);
+        $queryBuilder = new QueryBuilder();
+        $query = $queryBuilder->update('users', $data)->getData();
+        $stmt = $this->db->prepare($query->sql);
         $stmt->bindValue(':name', $data['name']);
         $stmt->bindValue(':id', $id);
 
