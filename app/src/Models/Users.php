@@ -24,6 +24,14 @@ class Users
         return $stmt->fetch(\PDO::FETCH_ASSOC);
     }
 
+    public function all()
+    {
+        $stmt = $this->db->prepare("SELECT * FROM `users`");
+        $stmt->execute();
+
+        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+    }
+
     public function create(array $data)
     {
         $this->events->trigger('creating.users', null, $data);
