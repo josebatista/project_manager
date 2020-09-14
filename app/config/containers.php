@@ -25,3 +25,5 @@ $container['db'] = function () {
 $container['users_model'] = function ($c) {
     return new Users($c);
 };
+
+return $container;
