@@ -8,7 +8,7 @@ $c = require __DIR__ . '/app/config/containers.php';
 $c = new Container($c);
 
 if (!empty($argv[1]) && $argv[1] === 'fresh') {
-    $c['db']->exec("DROP DATABASE IF EXISTS `project_manager`");
+    $c['db']->exec("DROP DATABASE IF EXISTS `{$c['settings']['db']['dbname']}`");
     echo 'DATABASE DROPPED!' . PHP_EOL;
 }
 
