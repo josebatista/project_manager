@@ -31,7 +31,8 @@ class UsersController
 
     public function update($container, Request $request)
     {
-        return 'update';
+        $user = new Users($container);
+        return $user->update($request->attributes->get(1), $request->request->all());
     }
 
     public function delete($container, Request $request)
