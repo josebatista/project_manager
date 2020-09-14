@@ -64,4 +64,19 @@ class Users
         return $result;
     }
 
+    public function delete($id)
+    {
+        $result = $this->get($id);
+
+        $this->events->trigger('deleting.users', null, $result);
+
+        $sql = "DELETE FROM `users` WHERE id=?";
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute([$id]);
+
+        $this->events->trigger('deleted.users', null, $result);
+
+        return $result;
+    }
+
 }
