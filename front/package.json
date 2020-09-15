@@ -1,21 +1,25 @@
 {
   "name": "project-manager",
-  "description": "front-end do project-manager",
   "version": "0.1.0",
   "private": true,
+  "description": "front-end do project-manager",
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build --no-clean",
-    "watch": "vue-cli-service build --watch --no-clean --mode development",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "watch": "vue-cli-service build --watch --no-clean --mode development"
   },
   "dependencies": {
     "core-js": "^3.6.5",
-    "vue": "^2.6.11"
+    "material-design-icons-iconfont": "^6.1.0",
+    "vue": "^2.6.11",
+    "vue-router": "^3.2.0",
+    "vuetify": "^2.3.10"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.5.0",
     "@vue/cli-plugin-eslint": "~4.5.0",
+    "@vue/cli-plugin-router": "^4.5.6",
     "@vue/cli-service": "~4.5.0",
     "babel-eslint": "^10.1.0",
     "eslint": "^6.7.2",
